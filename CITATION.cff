@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "Please cite this software using its Zenodo record."
+type: software
+title: "RTEM evapotranspiration partitioning and grouped GAM analysis: research software"
+version: 1.0.0
+date-released: 2026-11-16
+license: MIT
+repository-code: https://github.com/liborong123/RTEM-evapotranspiration-partitioning
+authors:
+  - family-names: "Li"
+    given-names: "Borong"
+    affiliation: "School of Civil Engineering and Water Resources, Qinghai University, Xining, China"
+  - family-names: "Huang"
+    given-names: "Yuefei"
+    affiliation: "Tsinghua University, Beijing and Shenzhen, China; Qinghai University, Xining, China"
+  - family-names: "Li"
+    given-names: "Bing"
+    affiliation: "Shenzhen International Graduate School, Tsinghua University, Shenzhen, China"
+  - family-names: "Chen"
+    given-names: "Zhichao"
+    affiliation: "State Key Laboratory of Hydroscience and Engineering, Department of Hydraulic Engineering, Tsinghua University, Beijing, China"
+  - family-names: "Zhang"
+    given-names: "Shuo"
+    affiliation: "State Key Laboratory of Hydroscience and Engineering, Department of Hydraulic Engineering, Tsinghua University, Beijing, China"

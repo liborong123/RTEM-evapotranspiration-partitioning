@@ -1,94 +1,54 @@
-# RTEM regional transpiration estimation
+# RTEM evapotranspiration partitioning
 
-Python implementation of the 11-predictor random forest used to estimate regional vegetation transpiration in the Three-River Headwater Region.
+Code accompanying the manuscript “Evapotranspiration partitioning with machine learning and controls on vegetation transpiration in the Three-River Headwater Region”.
 
-## Repository structure
+## Data layout
+
+Extract the data archives and this code archive into the same parent directory:
 
 ```text
-RTEM-evapotranspiration-partitioning/
-├── data_preprocessing.py   # Read aligned input arrays, existing labels and screening flags
-├── rtem_algorithm.py       # Fit the random forest and calculate tree-prediction percentiles
-├── run_rtem.py             # Command-line entry point and output export
-├── requirements.txt
-└── README.md
+project/
+  code/
+  data/
+    01_processed_inputs/
+    02_final_RF_outputs/
+    03_reference_products/
+    04_validation/
+    05_GAM/
+    06_final_tables_figures/
+    07_retained_sensitivity_experiment/
+    08_supplementary/
+  results/
 ```
 
-## Model configuration
+Set `RTEM_DATA_ROOT` and `RTEM_RESULTS_ROOT` if these directories are elsewhere. Analysis and plotting scripts write to `results/`. Existing data filenames are supported without renaming the frozen files. `RTEM_RESULT_FILE` can specify the final RTEM NetCDF explicitly.
 
-The model predicts daily transpiration-related water-use efficiency using these eleven inputs, in order:
+## RTEM
 
-| Input variable | Description |
-| --- | --- |
-| `temp` | Air temperature |
-| `shum` | Specific humidity |
-| `wind` | Wind speed |
-| `GPPgradtime` | Time derivative of smoothed gross primary productivity |
-| `Rg_pot` | Potential incoming radiation |
-| `Rgpot_grady` | Latitudinal gradient of potential radiation |
-| `Rgpot_gradtime` | Temporal gradient of potential radiation |
-| `CSWI` | Conservative surface wetness index |
-| `LAI` | Leaf area index |
-| `pres` | Air pressure |
-| `Rn` | Net radiation |
+The root files retain the repository entry points: `data_preprocessing.py`, `rtem_algorithm.py`, and `run_rtem.py`. The model predicts daily WUEt from the manuscript's 11 predictors. Parameters are 300 trees, square-root feature sampling, minimum leaf size 3, random seed 42, NDVI90 > 0.55, CSWI < -0.5, and the 85th percentile of individual-tree predictions. All parameters remain explicit in the code. SWC and static soil attributes are not RF predictors. SWC is used in the environmental analysis; CSWI is a separate RF input.
 
-The forest uses 300 trees, square-root feature sampling, a minimum leaf size of three, and random seed 42. Predictions are the pointwise 85th percentile of the individual-tree predictions. Transpiration is calculated as `GPP / WUEt`; evaporation is `ET - T`.
-
-Static soil properties, vapor pressure deficit, vegetation-available radiation and soil water content are not predictor columns in this model. Vapor pressure deficit may be involved in constructing the original water-use-efficiency labels. Existing screening flags are sample-selection controls, not additional predictor columns.
-
-## Input preparation
-
-The source experiment reused the aligned SFE evapotranspiration, FluxSat gross primary productivity, water-use-efficiency labels and quality-control flags from an existing NetCDF dataset. This repository implements that model stage. It does not download the original products or rebuild SFE estimates, uWUE labels or GAM analyses from raw observations.
-
-Provide a NetCDF file with dimensions `(lat, lon, timestamp)` containing all eleven inputs above and:
-
-- `ET`, `GPP`, `WUEt`;
-- `qualityFlag`, `vegFlag`, `NDVIFlag`, `posFlag`, `WUEtFlag`.
-
-Use the units, grid, dates, missing-value conventions and label definitions described in the manuscript. `NDVIFlag` represents the `NDVI90% > 0.55` training criterion. Dry training dates additionally require `CSWI < -0.5`. Finite labels and the source WUEt screening flag are retained exactly as in the original experiment. If the file includes a reference `RFflag`, the program verifies that the selected training mask is identical before fitting.
-
-The input labels and flags must come from the intended SFE-ET/FluxSat-GPP experiment. Changing the filename or variable names alone does not establish their provenance. The program reports available source metadata in `run_metadata.json`.
-
-## Installation
-
-```bash
-python -m pip install -r requirements.txt
+```text
+python run_rtem.py --input ../data/01_processed_inputs/RF_ready/current_preprocessed_template.nc --output ../results/rtem
 ```
 
-GDAL is only needed for optional daily GeoTIFF export. When using Conda, install it from conda-forge in the same environment:
+The prepared NetCDF includes the actual predictor arrays and screening flags. `preprocessing/compute_initial_labels.py` calculates the initial uWUE slope and labels. `preprocessing/compute_et.py` and `compute_vpd.py` preserve the SFE and VPD equations, taking arrays in physical units. Their command-line input handling has been organized for this release; it does not imply that the original provider-to-processed-data chain has been independently rerun. The data archive supplies the processed ET and VPD actually used. `screen_wuet.py` contains the MAD/upper-limit screening functions.
 
-```bash
-conda install -c conda-forge gdal
-```
+## Evaluation and figures
 
-## Run
+`analysis/calculate_temporal_metrics.py` uses the final paired regional time series and the manuscript's April–September season. It does not compare alternative season definitions. `analysis/calculate_site_ratios.py` implements the reported field-site monthly aggregation. Figure scripts reproduce the final model's product comparisons, spatial patterns, grouped GAM figures, framework and supplementary RF importance. Supplementary scripts use the reported vegetation-cover definition and individual environmental ranges.
 
-```bash
-python run_rtem.py --input model_inputs.nc --output results --n-jobs 16
-```
+## GAM
 
-For daily GeoTIFF output, supply an aligned reference raster:
+Install the analysis dependencies, including pyGAM 0.12.0 and scikit-learn 1.7.2, in a separate environment as needed. Run `python analysis/verify_gam.py` to check the archived model. To fit the analysis again, run `python analysis/fit_gam.py`. Group-wise standardization and PCA use training pixels only, the split is 80:20 with seed 42, and importance is the normalized decline in training explained-deviance after removing and refitting each group. These are associations with RTEM-estimated T.
 
-```bash
-python run_rtem.py --input model_inputs.nc --output results --reference-raster reference.tif
-```
+## Availability and scope
 
-`--chunk-size` controls the number of samples processed together when calculating tree percentiles. It changes memory use, not the percentile definition. Select `--n-jobs` to suit the available CPU resources. Large regional datasets require substantial RAM because the original workflow constructs a complete feature cube.
+Input datasets originate from public sources. Original source citations and access locations are provided with the data archive; third-party licences and citations continue to apply. Code and data require permanent repository records and actual DOI citations for resubmission.
 
-## Outputs
+The manuscript's Figure 6 parameter-sensitivity results are preserved in `data/07_retained_sensitivity_experiment/`; the original complete experiment-generation and plotting scripts have not been located. Figure 3 was assembled in plotting software; its original point-pair table/project has not been located. No replacement observations or experiment outcomes have been generated. These limitations are not resolved merely by packaging the final scripts.
 
-- `rtem_result.nc`: predicted water-use efficiency, transpiration, evaporation, training mask and feature importances.
-- `rf_model_11vars.joblib`: fitted forest and predictor names.
-- `feature_importances.csv`: normalized mean decrease in impurity for all eleven inputs.
-- `oob_scores.csv`: the forest's ensemble-mean out-of-bag R-squared. This diagnostic is not validation of the P85 estimator or an independent transpiration observation.
-- `run_metadata.json`: model settings, array dimensions, dates and hashes of the training mask and positive labels.
-- `RTEM_T/`: optional daily transpiration GeoTIFFs.
+Existing filenames inside data and saved-model metadata are retained for traceability.
 
-Model outputs are not clipped to enforce `T <= ET`; negative residual evaporation can therefore occur and should be examined when evaluating partitioning. The scripts preserve the source prediction-domain requirement that the original WUEt value is finite. Figures comparing products, seasonal-window analyses and GAM attribution are separate research analyses and are not run by this entry point.
+## License and citation
 
-## Data and code availability
-
-The original input datasets are openly available from the providers and repositories cited in the manuscript. The related model scripts are provided in this repository. Dataset descriptions, source references and the preparation of the aligned inputs are documented in the manuscript.
-
-## Citation
-
-Li, B., Huang, Y., Li, B., Chen, Z., and Zhang, S. *Evapotranspiration partitioning with machine learning and controls on vegetation transpiration in the Three-River Headwater Region.*
+The software is released under the MIT License. Third-party libraries and datasets retain their respective licences. Cite the Zenodo software record and the associated research article when available. `CITATION.cff` provides the software authors and version; `.zenodo.json` supplies the archive metadata.

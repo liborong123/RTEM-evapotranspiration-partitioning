@@ -1,0 +1,47 @@
+{
+  "title": "RTEM evapotranspiration partitioning and grouped GAM analysis: research software",
+  "upload_type": "software",
+  "description": "Research software for evapotranspiration partitioning and environmental analysis in the Three-River Headwater Region, Tibetan Plateau. The release provides 21 Python scripts implementing SFE ET and VPD equations, initial uWUE/WUEt labels, the manuscript RTEM random forest, grouped PCA/GAM analysis, final-product evaluation, and manuscript and supporting-figure generation. The RF uses 11 predictors, 300 trees, square-root feature sampling, minimum leaf size 3, seed 42, and the 85th percentile of individual-tree WUEt predictions. GAM uses training-only standardization and within-group PCA retaining at least 95% variance, an 80:20 split with seed 42, and drop-group explained-deviance importance. Small synthetic-data tests compared core calculations with the original implementations; saved-model regression checks preserve the current manuscript metrics. The data archives are distributed separately. The original complete experiment-generation/plotting scripts for the Figure 6 parameter-sensitivity results, and the original Figure 3 point-pair plotting table/project, have not been located. The README describes these scope limitations. The associated manuscript is entitled “Evapotranspiration partitioning with machine learning and controls on vegetation transpiration in the Three-River Headwater Region”.",
+  "creators": [
+    {
+      "name": "Li, Borong",
+      "affiliation": "School of Civil Engineering and Water Resources, Qinghai University, Xining, China"
+    },
+    {
+      "name": "Huang, Yuefei",
+      "affiliation": "Tsinghua University, Beijing and Shenzhen, China; Qinghai University, Xining, China"
+    },
+    {
+      "name": "Li, Bing",
+      "affiliation": "Shenzhen International Graduate School, Tsinghua University, Shenzhen, China"
+    },
+    {
+      "name": "Chen, Zhichao",
+      "affiliation": "State Key Laboratory of Hydroscience and Engineering, Department of Hydraulic Engineering, Tsinghua University, Beijing, China"
+    },
+    {
+      "name": "Zhang, Shuo",
+      "affiliation": "State Key Laboratory of Hydroscience and Engineering, Department of Hydraulic Engineering, Tsinghua University, Beijing, China"
+    }
+  ],
+  "version": "1.0.0",
+  "license": "mit",
+  "access_right": "open",
+  "language": "eng",
+  "publication_date": "2026-11-16",
+  "keywords": [
+    "evapotranspiration partitioning",
+    "transpiration",
+    "water-use efficiency",
+    "random forest",
+    "generalized additive model",
+    "Three-River Headwater Region"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/liborong123/RTEM-evapotranspiration-partitioning",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ]
+}

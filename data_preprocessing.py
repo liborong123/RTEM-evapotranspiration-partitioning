@@ -1,5 +1,3 @@
-"""Load the aligned arrays and screening flags used by the 11-predictor model."""
-
 from pathlib import Path
 import numpy as np
 import xarray as xr
@@ -19,12 +17,7 @@ SCREENING_FIELDS = [
 
 
 def load_model_inputs(path, cswi_limit=-0.5):
-    """Read existing labels and flags without recomputing their screening rules.
 
-    The source experiment reused these arrays to keep training samples unchanged
-    when replacing the former predictor set with the eleven published inputs.
-    Returns the model inputs, an optional reference RF mask and source metadata.
-    """
     path = Path(path)
     required = list(dict.fromkeys(DEFAULT_RF_FEATURES + SCREENING_FIELDS))
     with xr.open_dataset(path, engine="netcdf4") as source:
@@ -53,3 +46,4 @@ def load_model_inputs(path, cswi_limit=-0.5):
                 raise ValueError("Reference RFflag dimensions do not match the inputs")
             reference_mask = flag.values.astype(bool)
     return data, reference_mask, metadata
+

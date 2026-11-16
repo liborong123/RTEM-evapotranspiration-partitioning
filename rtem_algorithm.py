@@ -1,5 +1,3 @@
-"""Random forest estimation of regional transpiration."""
-
 from __future__ import annotations
 import datetime
 import os
@@ -34,7 +32,7 @@ DEFAULT_RF_KWARGS = {
 
 
 def _get_feature_3d(ds: xr.Dataset, var_name: str) -> np.ndarray:
-    """Return an array with dimensions (lat, lon, timestamp)."""
+
     if var_name not in ds:
         raise KeyError(f"Feature not found: {var_name}")
     arr = ds[var_name].values
@@ -74,7 +72,7 @@ def predict_forest_percentile(
     percentile: float,
     chunk_size: int = 100000,
 ) -> np.ndarray:
-    """Calculate a pointwise percentile of the individual tree predictions."""
+
     if not 0.0 <= percentile <= 100.0:
         raise ValueError(
             f"prediction_percentile must be between 0 and 100; received {percentile}"
@@ -122,7 +120,7 @@ def fit_predict_wuet(
     prediction_percentile: Optional[float] = 85.0,
     prediction_chunk_size: int = 100000,
     model_path: Optional[str] = None,
-    baseline_training_mask: Optional[np.ndarray] = None,
+    reference_training_mask: Optional[np.ndarray] = None,
 ) -> xr.Dataset:
     feature_names = (
         list(feature_names) if feature_names is not None else list(DEFAULT_RF_FEATURES)
@@ -179,10 +177,10 @@ def fit_predict_wuet(
     y_all = ds["WUEt"].values.astype(np.float32)
     for idx, limit in enumerate(cswi_limits):
         cur_flag = baseflag & (ds["CSWI"].values < limit) & ds["WUEtFlag"].values
-        if baseline_training_mask is not None:
+        if reference_training_mask is not None:
             if len(cswi_limits) != 1:
                 raise ValueError("A reference mask requires a single CSWI threshold")
-            if not np.array_equal(cur_flag, baseline_training_mask):
+            if not np.array_equal(cur_flag, reference_training_mask):
                 raise ValueError("Training selection differs from the reference RFflag")
         out["RFflag"].values[:, :, :, idx] = cur_flag
         out["NumForestPoints"].values[idx] = float(cur_flag.sum())
@@ -270,3 +268,4 @@ def fit_predict_wuet(
 
 if __name__ == "__main__":
     print("Import fit_predict_wuet from this module or run run_rtem.py.")
+

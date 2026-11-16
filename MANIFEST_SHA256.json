@@ -1,0 +1,147 @@
+[
+  {
+    "file": ".gitignore",
+    "bytes": 66,
+    "sha256": "d568a0a0285fbe925786ffcf8d96239230be7ff302fdd5401043d62bb455c273"
+  },
+  {
+    "file": ".zenodo.json",
+    "bytes": 2889,
+    "sha256": "f2506d5b95c8700d08a3d0055cb597b673271945673cdc17faf7d7d784020a36"
+  },
+  {
+    "file": "analysis/calculate_site_ratios.py",
+    "bytes": 1185,
+    "sha256": "6a4e5eb990e807e519fc23af11f477f75848206f4fca8084b300f3cd3b9f00bb"
+  },
+  {
+    "file": "analysis/calculate_temporal_metrics.py",
+    "bytes": 1425,
+    "sha256": "8de8fa046dfc18641eedb27d2aabaf9ff034dc2c693a38c994dc77abc5c47903"
+  },
+  {
+    "file": "analysis/fit_gam.py",
+    "bytes": 6317,
+    "sha256": "948be6ab544f9e24912dcd1860b3df2af28d65f1d368f5496703973dc020afe2"
+  },
+  {
+    "file": "analysis/prepare_environment.py",
+    "bytes": 3094,
+    "sha256": "4cb13fbb179969acae0ef44098035a3e3a1d8af1df29b3b996e1861d5d11a843"
+  },
+  {
+    "file": "analysis/verify_gam.py",
+    "bytes": 2857,
+    "sha256": "78914eed7a6a63229d3bf04e7331ba93d16691d95776b20dfd8f2699dd4c62a2"
+  },
+  {
+    "file": "CITATION.cff",
+    "bytes": 1201,
+    "sha256": "5f5a6121c4ef86039e5c5acaccaeb5c7d666bf2f507539a7b52a246c869b0eb0"
+  },
+  {
+    "file": "data_preprocessing.py",
+    "bytes": 1856,
+    "sha256": "d908c1366ef3a75a0d2a674c4fa6799c934f9e40fe824db54bdde237319e257c"
+  },
+  {
+    "file": "figures/plot_framework.py",
+    "bytes": 4043,
+    "sha256": "a8ef7a5feab1a7ba45919714a5af457ace0ed89e960ee8e6ad7f9ea025a2261f"
+  },
+  {
+    "file": "figures/plot_product_comparison.py",
+    "bytes": 19577,
+    "sha256": "509a158360e73100b40381d8c8d27033850a4042f4fe07edc1ec45aa0a8c237e"
+  },
+  {
+    "file": "figures/plot_rf_importance.py",
+    "bytes": 2753,
+    "sha256": "e2445f2eee43451f93cddff4b723468150da8bdaf3fc99bd679e2a8a9ce2b22f"
+  },
+  {
+    "file": "figures/plot_spatial_and_gam.py",
+    "bytes": 10833,
+    "sha256": "a09ad980df45e3672e17a00c8f7e211a8151db6de6b1559dcd0e9f1683fd5600"
+  },
+  {
+    "file": "figures/plot_temporal_comparison.py",
+    "bytes": 5946,
+    "sha256": "a45b3b00b6a4c19bfc40ac4b538073b7e5e48276466c3c2580922767f8f45793"
+  },
+  {
+    "file": "LICENSE",
+    "bytes": 1104,
+    "sha256": "15544abd9bd9fe2193782df0d65579e3f6e4d7b8540b23699555d49d84415910"
+  },
+  {
+    "file": "preprocessing/compute_et.py",
+    "bytes": 783,
+    "sha256": "935cd9ccf9e77d95af2660c4cbd816174e6fbc210999b7c97f5da967883968dd"
+  },
+  {
+    "file": "preprocessing/compute_initial_labels.py",
+    "bytes": 13371,
+    "sha256": "59a1dc98bd80964bf5e774da1234dc99d3ace523c881b7ab862b4cbb5f62c916"
+  },
+  {
+    "file": "preprocessing/compute_vpd.py",
+    "bytes": 750,
+    "sha256": "634cc7f1f28080f9039661dfb95b5f2af4a841d545199f0d04723d54b93a0fc7"
+  },
+  {
+    "file": "preprocessing/screen_wuet.py",
+    "bytes": 612,
+    "sha256": "b56a7e2eddae7a107f56af1094633288f81fcfe45d966052a48b4390c96a5603"
+  },
+  {
+    "file": "project_paths.py",
+    "bytes": 1202,
+    "sha256": "6893aa012730fe6de2b7e9fd12340ca06229c0385d911cf3e9e6cede06265fbc"
+  },
+  {
+    "file": "README.md",
+    "bytes": 4387,
+    "sha256": "1abf135b8d58046f83aade878e4c82d397e2ed851e8a5435d7763119b0f76ad6"
+  },
+  {
+    "file": "requirements-analysis.txt",
+    "bytes": 204,
+    "sha256": "84c28e16f662649df51a3b604ab3678a2d8b0899dd1739bbb619e9bc3f0c5015"
+  },
+  {
+    "file": "requirements.txt",
+    "bytes": 93,
+    "sha256": "e60b57e6b7816878448cfc790dedcab805c94ebf72fcb393ce5da3f9fbeedad8"
+  },
+  {
+    "file": "rtem_algorithm.py",
+    "bytes": 10601,
+    "sha256": "4ff714fe6595426aa1a8505a5d116039d5548a4b91b04e6dcf49ef6342baa6e4"
+  },
+  {
+    "file": "run_rtem.py",
+    "bytes": 6641,
+    "sha256": "18932a853ed512e9c9e36fbd3b368a84e6fea87fb87fc81afc39610b328c5ec4"
+  },
+  {
+    "file": "SCRIPT_INVENTORY.md",
+    "bytes": 2129,
+    "sha256": "c2d1404faedad2ee469eb32454e73b345ea343104f0b886b354fd5f9447c559b"
+  },
+  {
+    "file": "supplementary/calculate_cover_area.py",
+    "bytes": 937,
+    "sha256": "fdfb196530db204b4772787e346b7ac917215e242537f674e5f438417fe52d5c"
+  },
+  {
+    "file": "supplementary/calculate_environment_support.py",
+    "bytes": 2097,
+    "sha256": "85f26c7c3236d852737c487c054aca2af64167ff927ddcd62b244570f8bc40a2"
+  },
+  {
+    "file": "supplementary/plot_environment_support.py",
+    "bytes": 5900,
+    "sha256": "22d26c8ded1a25c5afbe8cfeef24e39fc6ca06dc1c55cd5df5944891baccfe50"
+  }
+]

@@ -1,4 +1,4 @@
-"""Run the 11-predictor RTEM model on aligned, prepared NetCDF inputs."""
+"""Run RF-based regional transpiration estimation."""
 
 import argparse
 import hashlib
@@ -27,7 +27,7 @@ MANUSCRIPT_SYMBOLS = [
 
 
 def export_daily_transpiration(result, reference_raster, folder):
-    """Write daily T with the unchanged reference-raster georeferencing."""
+
     from osgeo import gdal
 
     gdal.UseExceptions()
@@ -45,7 +45,7 @@ def export_daily_transpiration(result, reference_raster, folder):
     folder.mkdir(parents=True, exist_ok=True)
     for index, stamp in enumerate(result.timestamp.values):
         values = result.RTEM_T.isel(timestamp=index).values
-        target = folder / f"T_RTEM11_P85_{str(stamp)[:10]}.tif"
+        target = folder / f"T_RTEM_{str(stamp)[:10]}.tif"
         raster = gdal.GetDriverByName("GTiff").Create(
             str(target),
             values.shape[1],
@@ -69,7 +69,7 @@ def export_daily_transpiration(result, reference_raster, folder):
 
 
 def run(input_path, output_dir, n_jobs=16, chunk_size=100000, reference_raster=None):
-    """Fit the source model, verify its sample mask, and export its estimates."""
+
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     inputs, reference_mask, source_metadata = load_model_inputs(input_path)
@@ -81,8 +81,8 @@ def run(input_path, output_dir, n_jobs=16, chunk_size=100000, reference_raster=N
         rf_kwargs=parameters,
         prediction_percentile=85,
         prediction_chunk_size=chunk_size,
-        model_path=str(output_dir / "rf_model_11vars.joblib"),
-        baseline_training_mask=reference_mask,
+        model_path=str(output_dir / "rf_model.joblib"),
+        reference_training_mask=reference_mask,
     )
     if (
         not np.isfinite(estimates.NumForestPoints.values[0])
@@ -105,7 +105,7 @@ def run(input_path, output_dir, n_jobs=16, chunk_size=100000, reference_raster=N
             "Initial_uWUE_ET_source": "self-calculated SFE ET",
             "TrainingSamples": int(mask.sum()),
             "OOB_score": float(estimates.oob_scores.values[0]),
-            "Experiment": "11 predictors; source labels and screening flags retained",
+            "PredictorCount": len(DEFAULT_RF_FEATURES),
         }
     )
     result.to_netcdf(
@@ -180,3 +180,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
