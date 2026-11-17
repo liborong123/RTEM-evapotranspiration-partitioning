@@ -21,7 +21,7 @@ project/
   results/
 ```
 
-Set `RTEM_DATA_ROOT` and `RTEM_RESULTS_ROOT` if these directories are elsewhere. Analysis and plotting scripts write to `results/`. Existing data filenames are supported without renaming the frozen files. `RTEM_RESULT_FILE` can specify the final RTEM NetCDF explicitly.
+Set `RTEM_DATA_ROOT` and `RTEM_RESULTS_ROOT` if these directories are elsewhere. Analysis and plotting scripts write to `results/`. Archived input filenames are used as provided. `RTEM_RESULT_FILE` can specify the final RTEM NetCDF explicitly.
 
 ## RTEM
 
@@ -31,7 +31,7 @@ The root files retain the repository entry points: `data_preprocessing.py`, `rte
 python run_rtem.py --input ../data/01_processed_inputs/RF_ready/current_preprocessed_template.nc --output ../results/rtem
 ```
 
-The prepared NetCDF includes the actual predictor arrays and screening flags. `preprocessing/compute_initial_labels.py` calculates the initial uWUE slope and labels. `preprocessing/compute_et.py` and `compute_vpd.py` preserve the SFE and VPD equations, taking arrays in physical units. Their command-line input handling has been organized for this release; it does not imply that the original provider-to-processed-data chain has been independently rerun. The data archive supplies the processed ET and VPD actually used. `screen_wuet.py` contains the MAD/upper-limit screening functions.
+The prepared NetCDF includes the actual predictor arrays and screening flags. `preprocessing/compute_initial_labels.py` calculates the initial uWUE slope and labels. `preprocessing/compute_et.py` and `compute_vpd.py` preserve the SFE and VPD equations, taking arrays in physical units. The command-line utilities accept physical-unit arrays. The supplied model workflow starts from the prepared inputs; processed ET and VPD used in the study are included in the data archive. `screen_wuet.py` contains the MAD/upper-limit screening functions.
 
 ## Evaluation and figures
 
@@ -43,7 +43,7 @@ Install the analysis dependencies, including pyGAM 0.12.0 and scikit-learn 1.7.2
 
 ## Availability and scope
 
-Input datasets originate from public sources. Original source citations and access locations are provided with the data archive; third-party licences and citations continue to apply. Code and data require permanent repository records and actual DOI citations for resubmission.
+Input datasets originate from public sources. Original source citations and access locations are provided with the data archive; third-party licences and citations continue to apply.
 
 Figure 3 observed–estimated ET pairs are provided in the separate data archive `07_Fig3_paired_data.zip`. Figure 6 parameter-sensitivity results are provided in `data/07_retained_sensitivity_experiment/`. `SCRIPT_INVENTORY.md` lists the analyses and figure scripts included in this software release.
 
