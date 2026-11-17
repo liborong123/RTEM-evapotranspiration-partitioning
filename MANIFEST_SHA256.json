@@ -6,8 +6,8 @@
   },
   {
     "file": ".zenodo.json",
-    "bytes": 2889,
-    "sha256": "f2506d5b95c8700d08a3d0055cb597b673271945673cdc17faf7d7d784020a36"
+    "bytes": 2624,
+    "sha256": "92aef514e72ff8cabf4587a45f5e11567879bb5b2c75df032edd337b321125ca"
   },
   {
     "file": "analysis/calculate_site_ratios.py",
@@ -101,8 +101,8 @@
   },
   {
     "file": "README.md",
-    "bytes": 4387,
-    "sha256": "1abf135b8d58046f83aade878e4c82d397e2ed851e8a5435d7763119b0f76ad6"
+    "bytes": 4138,
+    "sha256": "5adcfb9af6fbee5dac4d6ccdca0a63c984192935bce9fbc2a98e3a1f5e213275"
   },
   {
     "file": "requirements-analysis.txt",

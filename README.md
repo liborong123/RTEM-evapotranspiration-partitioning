@@ -35,7 +35,7 @@ The prepared NetCDF includes the actual predictor arrays and screening flags. `p
 
 ## Evaluation and figures
 
-`analysis/calculate_temporal_metrics.py` uses the final paired regional time series and the manuscript's April–September season. It does not compare alternative season definitions. `analysis/calculate_site_ratios.py` implements the reported field-site monthly aggregation. Figure scripts reproduce the final model's product comparisons, spatial patterns, grouped GAM figures, framework and supplementary RF importance. Supplementary scripts use the reported vegetation-cover definition and individual environmental ranges.
+`analysis/calculate_temporal_metrics.py` calculates agreement over the full paired regional time series and separately for April–September. `analysis/calculate_site_ratios.py` implements the reported field-site monthly aggregation. Figure scripts reproduce the final model's product comparisons, spatial patterns, grouped GAM figures, framework and supplementary RF importance. Supplementary scripts use the reported vegetation-cover definition and individual environmental ranges.
 
 ## GAM
 
@@ -45,7 +45,7 @@ Install the analysis dependencies, including pyGAM 0.12.0 and scikit-learn 1.7.2
 
 Input datasets originate from public sources. Original source citations and access locations are provided with the data archive; third-party licences and citations continue to apply. Code and data require permanent repository records and actual DOI citations for resubmission.
 
-The manuscript's Figure 6 parameter-sensitivity results are preserved in `data/07_retained_sensitivity_experiment/`; the original complete experiment-generation and plotting scripts have not been located. Figure 3 was assembled in plotting software; its original point-pair table/project has not been located. No replacement observations or experiment outcomes have been generated. These limitations are not resolved merely by packaging the final scripts.
+Figure 3 observed–estimated ET pairs are provided in the separate data archive `07_Fig3_paired_data.zip`. Figure 6 parameter-sensitivity results are provided in `data/07_retained_sensitivity_experiment/`. `SCRIPT_INVENTORY.md` lists the analyses and figure scripts included in this software release.
 
 Existing filenames inside data and saved-model metadata are retained for traceability.
 
